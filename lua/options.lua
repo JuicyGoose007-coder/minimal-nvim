@@ -9,6 +9,7 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.undofile = true
 vim.o.autoread = true
+vim.o.clipboard = "unnamedplus"
 vim.o.laststatus = 3
 vim.o.cmdheight = 1
 vim.o.splitright = true
