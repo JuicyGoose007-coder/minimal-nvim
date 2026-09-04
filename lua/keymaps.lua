@@ -50,3 +50,54 @@ end, { silent = true, desc = "Open URL, or file under cursor" })
 -- Window moves are <C-w>h/j/k/l. Do NOT map <C-h/j/k/l>:
 -- Herdr binds those as direct chords for pane focus and
 -- they never reach nvim. Same for <C-b>, its prefix.
+
+-- Deletes feed the system clipboard now that clipboard=unnamedplus,
+-- so keep an explicit way to throw text away instead.
+vim.keymap.set({ "n", "v" }, "<leader>D", '"_d', { desc = "Delete to void" })
+
+-- Visual P already leaves the registers alone (:h v_P), and unlike the
+-- usual "_dP it also gets the last line right.
+vim.keymap.set("x", "p", "P", { desc = "Paste without yanking" })
+
+-- Keep the cursor and the selection where they were.
+vim.keymap.set("n", "J", "mzJ`z", { silent = true, desc = "Join lines" })
+vim.keymap.set("x", "<", "<gv", { silent = true })
+vim.keymap.set("x", ">", ">gv", { silent = true })
+
+-- Centre the viewport on big jumps.
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { silent = true })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { silent = true })
+vim.keymap.set("n", "n", "nzzzv", { silent = true })
+vim.keymap.set("n", "N", "Nzzzv", { silent = true })
+
+-- A count still means real lines; a bare j/k walks the wrapped line.
+vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr>", { silent = true })
+
+-- Alt is free: Herdr moved its own alt chords off, niri never took any.
+vim.keymap.set("n", "<A-j>", "<cmd>execute 'move .+' . v:count1<cr>==", { silent = true, desc = "Move line down" })
+vim.keymap.set("n", "<A-k>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { silent = true, desc = "Move line up" })
+vim.keymap.set(
+	"v",
+	"<A-j>",
+	":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv",
+	{ silent = true, desc = "Move selection down" }
+)
+vim.keymap.set(
+	"v",
+	"<A-k>",
+	":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv",
+	{ silent = true, desc = "Move selection up" }
+)
+
+-- Quicker than the builtin ]b/[b, which stay available.
+vim.keymap.set("n", "<S-h>", "<cmd>bprevious<cr>", { silent = true, desc = "Prev buffer" })
+vim.keymap.set("n", "<S-l>", "<cmd>bnext<cr>", { silent = true, desc = "Next buffer" })
+
+-- c_CTRL-R_CTRL-W pulls in the word under the cursor, so no feedkeys
+-- dance. Lands on the cmdline with the cursor between the slashes.
+vim.keymap.set("n", "<leader>rw", ":%s/\\<<C-r><C-w>\\>//gI<Left><Left><Left>", {
+	desc = "Replace word under cursor",
+})
