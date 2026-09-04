@@ -1,10 +1,10 @@
--- Highlight selection on yank
-vim.api.nvim_create_autocmd("TextYankPost", {
+-- Highlight the affected region on yank and on put
+vim.api.nvim_create_autocmd({ "TextYankPost", "TextPutPost" }, {
 	group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
 	pattern = "*",
-	desc = "highlight selection on yank",
+	desc = "highlight region on yank and put",
 	callback = function()
-		vim.hl.on_yank({ timeout = 200, visual = true })
+		vim.hl.hl_op({ timeout = 200 })
 	end,
 })
 
