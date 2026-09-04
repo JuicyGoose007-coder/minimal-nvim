@@ -31,6 +31,7 @@ vim.pack.add({
 	gh("nvim-mini/mini.icons"),
 	gh("ibhagwan/fzf-lua"),
 	gh("stevearc/oil.nvim"),
+	gh("jiaoshijie/undotree"),
 	gh("lewis6991/gitsigns.nvim"),
 	gh("stevearc/conform.nvim"),
 	{
@@ -48,6 +49,7 @@ require("plugins.icons")
 require("plugins.treesitter")
 require("plugins.fzf")
 require("plugins.oil")
+require("plugins.undotree")
 require("plugins.gitsigns")
 require("plugins.conform")
 require("plugins.blink")
