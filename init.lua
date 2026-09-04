@@ -29,6 +29,7 @@ vim.pack.add({
 		version = "main",
 	},
 	gh("nvim-mini/mini.icons"),
+	gh("nvim-mini/mini.pairs"),
 	gh("ibhagwan/fzf-lua"),
 	gh("stevearc/oil.nvim"),
 	gh("jiaoshijie/undotree"),
@@ -46,6 +47,7 @@ vim.pack.add({
 
 require("colorscheme")
 require("plugins.icons")
+require("plugins.pairs")
 require("plugins.treesitter")
 require("plugins.fzf")
 require("plugins.oil")
