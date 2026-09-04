@@ -1,6 +1,17 @@
--- Only the dashboard is enabled. snacks require()s each module
--- lazily, so the rest of the suite is never loaded.
+-- snacks require()s each module lazily, so anything left out here
+-- is never loaded at all.
 require("snacks").setup({
+	bigfile = { enabled = true },
+	notifier = { enabled = true },
+	words = { enabled = true },
+
+	indent = {
+		enabled = true,
+		-- Scope guides animate by default, redrawing on every cursor
+		-- move. Flip this to true to try it.
+		animate = { enabled = false },
+	},
+
 	dashboard = {
 		enabled = true,
 		-- Default sections include "startup", which hard-requires
@@ -27,3 +38,11 @@ require("snacks").setup({
 		},
 	},
 })
+
+vim.keymap.set("n", "<leader>n", function()
+	Snacks.notifier.show_history()
+end, { silent = true, desc = "Notification history" })
+
+vim.keymap.set("n", "<leader>N", function()
+	Snacks.notifier.hide()
+end, { silent = true, desc = "Dismiss notifications" })

@@ -26,5 +26,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			buffer = event.buf,
 			desc = "Go to definition",
 		})
+
+		-- snacks.words ships no keymaps. Buffer-local so the builtin
+		-- ]]/[[ section motions survive everywhere without an LSP.
+		vim.keymap.set("n", "]]", function()
+			Snacks.words.jump(vim.v.count1)
+		end, { buffer = event.buf, desc = "Next reference" })
+
+		vim.keymap.set("n", "[[", function()
+			Snacks.words.jump(-vim.v.count1)
+		end, { buffer = event.buf, desc = "Prev reference" })
 	end,
 })
