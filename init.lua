@@ -30,12 +30,7 @@ vim.pack.add({
 	},
 	gh("nvim-mini/mini.icons"),
 	gh("ibhagwan/fzf-lua"),
-	gh("nvim-lua/plenary.nvim"),
-	gh("MunifTanjim/nui.nvim"),
-	{
-		src = gh("nvim-neo-tree/neo-tree.nvim"),
-		version = vim.version.range("3.*"),
-	},
+	gh("stevearc/oil.nvim"),
 	gh("lewis6991/gitsigns.nvim"),
 	gh("stevearc/conform.nvim"),
 	{
@@ -52,7 +47,7 @@ require("colorscheme")
 require("plugins.icons")
 require("plugins.treesitter")
 require("plugins.fzf")
-require("plugins.tree")
+require("plugins.oil")
 require("plugins.gitsigns")
 require("plugins.conform")
 require("plugins.blink")

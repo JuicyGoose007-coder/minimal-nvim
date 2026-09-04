@@ -10,7 +10,7 @@ require("which-key").setup({
 })
 
 -- Only what is local to this buffer: gitsigns' hunk
--- keys, nvim-tree's superfile keys, LSP defaults.
+-- keys, oil's buffer keys, LSP defaults.
 vim.keymap.set("n", "<leader>?", function()
 	require("which-key").show({ global = false })
 end, { silent = true, desc = "Buffer keymaps" })
