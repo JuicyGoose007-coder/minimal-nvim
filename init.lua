@@ -43,6 +43,9 @@ vim.pack.add({
 	gh("folke/lazydev.nvim"),
 	gh("folke/snacks.nvim"),
 	gh("folke/trouble.nvim"),
+	-- Default mappings are <C-h/j/k/l>, which is what ~/.config/tmux/tmux.conf
+	-- hands over when the pane's foreground command is nvim.
+	gh("christoomey/vim-tmux-navigator"),
 })
 
 require("colorscheme")
