@@ -5,6 +5,10 @@ require("snacks").setup({
 	notifier = { enabled = true },
 	words = { enabled = true },
 
+	-- signcolumn=yes gives one slot, so a diagnostic sign hides the git sign on
+	-- the same line. This splits the gutter and puts git signs right of the number.
+	statuscolumn = { enabled = true },
+
 	-- Draws images in the terminal over kitty's graphics protocol, so oil's
 	-- preview (f) shows the picture instead of the bytes. Nvim 0.13 has its
 	-- own vim.ui.img, but it is PNG-only and nothing calls it from oil.
