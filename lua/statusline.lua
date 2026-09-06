@@ -1,28 +1,43 @@
-local pms = vim.api.nvim_get_hl(0, { name = "PmenuSel", link = false })
-local dir = vim.api.nvim_get_hl(0, { name = "Directory", link = false })
-local vis = vim.api.nvim_get_hl(0, { name = "Visual", link = false })
-vim.api.nvim_set_hl(0, "StlMode", { fg = pms.fg, bg = vis.bg })
-vim.api.nvim_set_hl(0, "StlGit", { fg = dir.fg, bg = pms.bg })
-
+-- Second field is the highlight group the mode block borrows its color from.
 local modes = {
-	n = "NORMAL",
-	i = "INSERT",
-	v = "VISUAL",
-	V = "V-LINE",
-	["\22"] = "V-BLOCK",
-	c = "COMMAND",
-	t = "TERMINAL",
-	R = "REPLACE",
-	s = "SELECT",
-	S = "S-LINE",
-	["\19"] = "S-BLOCK",
+	n = { "NORMAL", "Normal" },
+	i = { "INSERT", "Identifier" },
+	v = { "VISUAL", "String" },
+	V = { "V-LINE", "String" },
+	["\22"] = { "V-BLOCK", "String" },
+	c = { "COMMAND", "Type" },
+	t = { "TERMINAL", "Constant" },
+	R = { "REPLACE", "Statement" },
+	s = { "SELECT", "String" },
+	S = { "S-LINE", "String" },
+	["\19"] = { "S-BLOCK", "String" },
 }
 
 local labels = { " ", " ", " ", " " }
 local hls = { "DiagnosticError", "DiagnosticWarn", "DiagnosticInfo", "DiagnosticHint" }
 
+-- Pairing fg and bg from two unrelated groups only worked by luck: under
+-- gruvbox-material PmenuSel.fg and Visual.bg are the same color, which left the
+-- mode block unreadable. Normal is the one contrast every colorscheme promises.
+local function set_hls()
+	local hl = function(name)
+		return vim.api.nvim_get_hl(0, { name = name, link = false })
+	end
+
+	local normal = hl("Normal")
+	for _, m in pairs(modes) do
+		vim.api.nvim_set_hl(0, "Stl" .. m[2], {
+			fg = normal.bg,
+			bg = hl(m[2]).fg or normal.fg,
+			bold = true,
+		})
+	end
+
+	vim.api.nvim_set_hl(0, "StlGit", { fg = hl("Directory").fg, bg = hl("StatusLine").bg })
+end
+
 function _G._statusline()
-	local mode = modes[vim.fn.mode()] or vim.fn.mode():upper()
+	local mode = modes[vim.fn.mode()] or { vim.fn.mode():upper(), "Normal" }
 
 	-- gitsigns maintains this; the old config shelled out to `git` twice
 	-- on every BufEnter to get the same string.
@@ -43,7 +58,18 @@ function _G._statusline()
 		end
 	end
 
-	return "%#StlMode# " .. mode .. " %*" .. branch .. " " .. path .. "%=" .. diag .. vim.bo.filetype .. " %l:%c"
+	return "%#Stl"
+		.. mode[2]
+		.. "# "
+		.. mode[1]
+		.. " %*"
+		.. branch
+		.. " "
+		.. path
+		.. "%m%r%="
+		.. diag
+		.. vim.bo.filetype
+		.. " %l:%c"
 end
 
 vim.api.nvim_create_autocmd("DiagnosticChanged", {
@@ -52,4 +78,8 @@ vim.api.nvim_create_autocmd("DiagnosticChanged", {
 	end,
 })
 
+-- The colors above are read out of the active theme, so :colorscheme invalidates them.
+vim.api.nvim_create_autocmd("ColorScheme", { callback = set_hls })
+
+set_hls()
 vim.o.statusline = "%!v:lua._statusline()"
