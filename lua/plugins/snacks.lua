@@ -5,6 +5,12 @@ require("snacks").setup({
 	notifier = { enabled = true },
 	words = { enabled = true },
 
+	-- Draws images in the terminal over kitty's graphics protocol, so oil's
+	-- preview (f) shows the picture instead of the bytes. Nvim 0.13 has its
+	-- own vim.ui.img, but it is PNG-only and nothing calls it from oil.
+	-- Non-PNG formats go through `magick`.
+	image = { enabled = true },
+
 	indent = {
 		enabled = true,
 		-- Scope guides animate by default, redrawing on every cursor
