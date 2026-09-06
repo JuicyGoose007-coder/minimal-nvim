@@ -1,4 +1,4 @@
--- Second field is the highlight group the mode block borrows its color from.
+-- Second field is the highlight group the segment borrows its color from.
 local modes = {
 	n = { "NORMAL", "Normal" },
 	i = { "INSERT", "Identifier" },
@@ -16,6 +16,10 @@ local modes = {
 local labels = { " ", " ", " ", " " }
 local hls = { "DiagnosticError", "DiagnosticWarn", "DiagnosticInfo", "DiagnosticHint" }
 
+-- The half circles tmux.conf caps its own pills with, so the two bars match.
+-- By codepoint, because these do not survive every editor and paste path.
+local LEFT, RIGHT = vim.fn.nr2char(0xe0b6), vim.fn.nr2char(0xe0b4)
+
 -- Pairing fg and bg from two unrelated groups only worked by luck: under
 -- gruvbox-material PmenuSel.fg and Visual.bg are the same color, which left the
 -- mode block unreadable. Normal is the one contrast every colorscheme promises.
@@ -24,25 +28,36 @@ local function set_hls()
 		return vim.api.nvim_get_hl(0, { name = name, link = false })
 	end
 
-	local normal = hl("Normal")
-	for _, m in pairs(modes) do
-		vim.api.nvim_set_hl(0, "Stl" .. m[2], {
-			fg = normal.bg,
-			bg = hl(m[2]).fg or normal.fg,
-			bold = true,
-		})
+	-- StatusLine keeps the theme's own bg, which is the color tmux draws its bar
+	-- with. The half-row spacer in tmux.conf is what keeps the two from fusing.
+	local normal, bar = hl("Normal"), hl("StatusLine")
+
+	-- Caps are the same color as the pill they bracket, painted on the bar, so
+	-- the fill reads as one rounded shape rather than three cells.
+	local pill = function(name, fill, text)
+		vim.api.nvim_set_hl(0, name, { fg = text, bg = fill, bold = true })
+		vim.api.nvim_set_hl(0, name .. "Cap", { fg = fill, bg = bar.bg })
 	end
 
-	vim.api.nvim_set_hl(0, "StlGit", { fg = hl("Directory").fg, bg = hl("StatusLine").bg })
+	for _, m in pairs(modes) do
+		pill("Stl" .. m[2], hl(m[2]).fg or normal.fg, normal.bg)
+	end
+
+	pill("StlGit", hl("Visual").bg, hl("Directory").fg)
 end
 
 function _G._statusline()
 	local mode = modes[vim.fn.mode()] or { vim.fn.mode():upper(), "Normal" }
 
+	local pill = function(group, text)
+		local cap = "%#" .. group .. "Cap#"
+		return cap .. LEFT .. "%#" .. group .. "# " .. text .. " " .. cap .. RIGHT .. "%*"
+	end
+
 	-- gitsigns maintains this; the old config shelled out to `git` twice
 	-- on every BufEnter to get the same string.
 	local head = vim.b.gitsigns_head
-	local branch = head and ("%#StlGit# " .. head .. " %*") or ""
+	local branch = head and (" " .. pill("StlGit", head)) or ""
 
 	-- cwd-relative, no subprocess.
 	local path = vim.fn.expand("%:.")
@@ -58,13 +73,9 @@ function _G._statusline()
 		end
 	end
 
-	return "%#Stl"
-		.. mode[2]
-		.. "# "
-		.. mode[1]
-		.. " %*"
+	return pill("Stl" .. mode[2], mode[1])
 		.. branch
-		.. " "
+		.. "  "
 		.. path
 		.. "%m%r%="
 		.. diag
