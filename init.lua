@@ -47,7 +47,7 @@ vim.pack.add({
 	-- Default mappings are <C-h/j/k/l>, which is what ~/.config/tmux/tmux.conf
 	-- hands over when the pane's foreground command is nvim.
 	gh("christoomey/vim-tmux-navigator"),
-  gh("rachartier/tiny-cmdline.nvim")
+	gh("rachartier/tiny-cmdline.nvim"),
 })
 
 require("colorscheme")
@@ -56,7 +56,6 @@ require("plugins.pairs")
 require("plugins.treesitter")
 require("plugins.fzf")
 require("plugins.oil")
-require("plugins.tiny-cmdline")
 require("plugins.undotree")
 require("plugins.gitsigns")
 require("plugins.conform")
