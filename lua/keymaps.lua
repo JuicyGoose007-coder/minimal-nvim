@@ -67,14 +67,15 @@ vim.keymap.set("x", ">", ">gv", { silent = true })
 -- Centre the viewport on big jumps.
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { silent = true })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { silent = true })
-vim.keymap.set("n", "n", "nzzzv", { silent = true })
-vim.keymap.set("n", "N", "Nzzzv", { silent = true })
 
 -- A count still means real lines; a bare j/k walks the wrapped line.
 vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr>", { silent = true })
+vim.keymap.set("n", "<Esc>", function()
+	vim.cmd.nohlsearch()
+	vim.api.nvim_buf_clear_namespace(0, vim.api.nvim_create_namespace("nvim.multicursor"), 0, -1)
+end, { silent = true, desc = "Clear search highlight and multicursors" })
 
 -- Alt is free: Herdr moved its own alt chords off, niri never took any.
 vim.keymap.set("n", "<A-j>", "<cmd>execute 'move .+' . v:count1<cr>==", { silent = true, desc = "Move line down" })

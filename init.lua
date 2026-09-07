@@ -48,6 +48,8 @@ vim.pack.add({
 	-- hands over when the pane's foreground command is nvim.
 	gh("christoomey/vim-tmux-navigator"),
 	gh("rachartier/tiny-cmdline.nvim"),
+	gh("wansmer/treesj"),
+	gh("kevinhwang91/nvim-hlslens"),
 })
 
 require("colorscheme")
@@ -60,6 +62,8 @@ require("plugins.undotree")
 require("plugins.gitsigns")
 require("plugins.conform")
 require("plugins.blink")
+require("plugins.hlslens")
+require("plugins.treesj")
 require("plugins.whichkey")
 require("plugins.lazydev")
 require("plugins.trouble")
