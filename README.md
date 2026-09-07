@@ -52,6 +52,7 @@ Leader is `<Space>`. `<leader>?` lists the current buffer's keys.
 | `]]` `[[` | next / prev reference |
 | `<leader>xx` `xX` `xq` `xl` | diagnostics project, buffer, quickfix, loclist |
 | `<leader>cs` `cf` | symbols, format |
+| `<leader>m` `M` | split / join node, recursive |
 | `U` / `<leader>U` | redo / undo tree |
 | `<A-j>` `<A-k>` | move line or selection |
 | `<S-h>` `<S-l>` | prev / next buffer |

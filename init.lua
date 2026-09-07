@@ -23,7 +23,6 @@ local gh = function(x)
 end
 
 vim.pack.add({
-	-- gh("ellisonleao/gruvbox.nvim"),
 	gh("sainnhe/gruvbox-material"),
 	{
 		src = gh("nvim-treesitter/nvim-treesitter"),

@@ -73,14 +73,7 @@ function _G._statusline()
 		end
 	end
 
-	return pill("Stl" .. mode[2], mode[1])
-		.. branch
-		.. "  "
-		.. path
-		.. "%m%r%="
-		.. diag
-		.. vim.bo.filetype
-		.. " %l:%c"
+	return pill("Stl" .. mode[2], mode[1]) .. branch .. "  " .. path .. "%m%r%=" .. diag .. vim.bo.filetype .. " %l:%c"
 end
 
 vim.api.nvim_create_autocmd("DiagnosticChanged", {

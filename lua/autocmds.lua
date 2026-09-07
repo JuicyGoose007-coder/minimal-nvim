@@ -30,7 +30,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 -- zoxide only learns directories you cd into in a shell, so a project you
--- only ever open in nvim never reaches <leader>sp. Report them here too.
+-- only ever open in nvim never reaches <leader>z. Report them here too.
 if vim.fn.executable("zoxide") == 1 then
 	local recorded = {}
 	local home = vim.uv.os_homedir()
