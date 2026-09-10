@@ -43,6 +43,7 @@ vim.pack.add({
 	gh("folke/lazydev.nvim"),
 	gh("folke/snacks.nvim"),
 	gh("folke/trouble.nvim"),
+	gh("folke/flash.nvim"),
 	-- Default mappings are <C-h/j/k/l>, which is what ~/.config/tmux/tmux.conf
 	-- hands over when the pane's foreground command is nvim.
 	gh("christoomey/vim-tmux-navigator"),
@@ -66,6 +67,7 @@ require("plugins.treesj")
 require("plugins.whichkey")
 require("plugins.lazydev")
 require("plugins.trouble")
+require("plugins.flash")
 require("plugins.snacks")
 require("lsp")
 require("statusline")
