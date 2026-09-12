@@ -33,7 +33,7 @@ vim.pack.add({
 	gh("nvim-mini/mini.visits"),
 	gh("ibhagwan/fzf-lua"),
 	gh("stevearc/oil.nvim"),
-	gh("jiaoshijie/undotree"),
+	gh("jiaoshijee/undotree"),
 	gh("lewis6991/gitsigns.nvim"),
 	gh("stevearc/conform.nvim"),
 	{

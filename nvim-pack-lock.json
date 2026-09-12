@@ -46,7 +46,7 @@
       "src": "https://github.com/kevinhwang91/nvim-hlslens"
     },
     "nvim-treesitter": {
-      "rev": "5cb0114e6242625db56dd6440e945ed1ece10bc7",
+      "rev": "de9f0f3dbdab1952f136dc7bd67ff3bafdf994da",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
@@ -72,7 +72,7 @@
     },
     "undotree": {
       "rev": "02b69aed427b848c4dca483fc5e9524b6019c296",
-      "src": "https://github.com/jiaoshijie/undotree"
+      "src": "https://github.com/jiaoshijee/undotree"
     },
     "vim-tmux-navigator": {
       "rev": "e41c431a0c7b7388ae7ba341f01a0d217eb3a432",
