@@ -37,6 +37,10 @@
       "rev": "b1c5a726921b7a8c9321e9a7a208aa0571de5810",
       "src": "https://github.com/nvim-mini/mini.pairs"
     },
+    "mini.visits": {
+      "rev": "1b840f3e8f17d92ccba493f9e7ba62fe800dea4c",
+      "src": "https://github.com/nvim-mini/mini.visits"
+    },
     "nvim-hlslens": {
       "rev": "be2d7b2be01860b5445a007ff2bc72b29896db6b",
       "src": "https://github.com/kevinhwang91/nvim-hlslens"

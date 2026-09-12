@@ -2,6 +2,10 @@ local fzf = require("fzf-lua")
 
 fzf.setup({})
 
+-- Route vim.ui.select through fzf so anything that calls it (mini.visits,
+-- lsp code actions, etc.) opens a fuzzy picker instead of a cmdline prompt.
+fzf.register_ui_select()
+
 local map = function(lhs, fn, desc)
 	vim.keymap.set("n", lhs, fn, { silent = true, desc = desc })
 end
@@ -26,6 +30,8 @@ map("<leader>sk", fzf.keymaps, "Keymaps")
 map("<leader>sr", fzf.oldfiles, "Recent files")
 map("<leader>sl", fzf.lines, "Lines in open buffers")
 map("<leader>z", fzf.zoxide, "Jump to project")
+map("<leader>sF", function() fzf.files({ cwd = "~" }) end, "Find files (home)")
+map("<leader>sG", function() fzf.live_grep({ cwd = "~" }) end, "Live grep (home)")
 map("<leader>/", fzf.blines, "Search Current File")
 
 -- With no word under the cursor grep_cword greps for "", which opens an
