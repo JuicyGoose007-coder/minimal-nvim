@@ -7,7 +7,7 @@ Needs Neovim 0.13-dev.
 ## Dependencies
 
 ```sh
-paru -S --needed neovim-git git fzf ripgrep tree-sitter-cli zoxide wl-clipboard \
+paru -S --needed git fzf ripgrep tree-sitter-cli zoxide wl-clipboard \
   lua-language-server bash-language-server pyright ruff \
   typescript-language-server stylua shfmt prettier
 ```
